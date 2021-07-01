@@ -107,7 +107,7 @@ class Ui_WikiGenerator(object):
         if(self.comboBox.currentText() == 'Denali'):
             self.java.setText(_translate("WikiGenerator", "JavaSDK VERSION"))
         elif(self.comboBox.currentText() == 'Rainier'):
-            self.java.setText(_translate("WikiGenerator", "Atlas VERSION"))
+            self.java.setText(_translate("WikiGenerator", "AtlasSDK VERSION"))
     def hmi_wiki(self):
         hmiVersion = self.hmi_.text()
         branchName = self.branch_.text()
@@ -117,64 +117,56 @@ class Ui_WikiGenerator(object):
         rsi = self.rsi_.text()
         if(self.comboBox.currentText() == 'Denali'):
             hmi_content = '''
-            
-            **HMI:**
-        
-            - GIT: https://bitbucket.telenav.com/projects/AUT/repos/hmi-common/browse?at=refs%2Fheads%2Frelease%2F{_branchName}
-            - Last commit: [{_lastCommit_title}]({_lastCommit})
-            - Jenkins Flow: [{_jenkins}]({_jenkins})
-            - HMI APK(HU): [denali-android-x86_64-{_hmiVersion}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/Denali/release/{_branchName}/RC/{_hmiVersion}/Artifacts/denali-android-x86_64-{_hmiVersion}-signed.apk)
-            - HMI APK(X86_64 Tablet): [denali-android-x86_64-tablet-{_hmiVersion}8-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/Denali/release/{_branchName}/RC/{_hmiVersion}/Artifacts/denali-android-x86_64-tablet-{_hmiVersion}-signed.apk)
-            - Version: {_hmiVersion}
-            - HMI APK(Armv7a Tablet): [denali-android-armv7a-tablet-{_hmiVersion}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/Denali/release/{_branchName}/RC/{_hmiVersion}/Artifacts/denali-android-armv7a-tablet-{_hmiVersion}-signed.apk)
-            - Release note: http://tar2.telenav.com/repository/telenav/HMI-Common/Denali/release/{_branchName}/RC/{_hmiVersion}/ReleaseNote/release_note.html
-            - HMI APK(Production): [production-denali-x86_64-android-{_hmiVersion}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/Denali/release/{_branchName}/RC/{_hmiVersion}/Artifacts/production-denali-x86_64-android-{_hmiVersion}-signed.apk)
-            - GM Jenkins: 
-            - Home Screen: 
-            - prebuild:
-        
-        
-            **RSI:**
-        
-            - RSI1: [rsi1-{_rsi}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/RSI/release/{_branchName}/RC/{_rsi}/Artifacts/rsi1-{_rsi}-signed.apk)
-            - RSI2: [rsi2-{_rsi}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/RSI/release/{_branchName}/RC/{_rsi}/Artifacts/rsi2-{_rsi}-signed.apk)
-        
-        
+**HMI:**
+
+- GIT: https://bitbucket.telenav.com/projects/AUT/repos/hmi-common/browse?at=refs%2Fheads%2Frelease%2F{_branchName}
+- Last commit: [{_lastCommit_title}]({_lastCommit})
+- Jenkins Flow: [{_jenkins}]({_jenkins})
+- HMI APK(HU): [denali-android-x86_64-{_hmiVersion}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/Denali/release/{_branchName}/RC/{_hmiVersion}/Artifacts/denali-android-x86_64-{_hmiVersion}-signed.apk)
+- HMI APK(X86_64 Tablet): [denali-android-x86_64-tablet-{_hmiVersion}8-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/Denali/release/{_branchName}/RC/{_hmiVersion}/Artifacts/denali-android-x86_64-tablet-{_hmiVersion}-signed.apk)
+- Version: {_hmiVersion}
+- HMI APK(Armv7a Tablet): [denali-android-armv7a-tablet-{_hmiVersion}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/Denali/release/{_branchName}/RC/{_hmiVersion}/Artifacts/denali-android-armv7a-tablet-{_hmiVersion}-signed.apk)
+- Release note: http://tar2.telenav.com/repository/telenav/HMI-Common/Denali/release/{_branchName}/RC/{_hmiVersion}/ReleaseNote/release_note.html
+- HMI APK(Production): [production-denali-x86_64-android-{_hmiVersion}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/Denali/release/{_branchName}/RC/{_hmiVersion}/Artifacts/production-denali-x86_64-android-{_hmiVersion}-signed.apk)
+- GM Jenkins: 
+- Home Screen: 
+- prebuild:
+
+
+**RSI:**
+
+- RSI1: [rsi1-{_rsi}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/RSI/release/{_branchName}/RC/{_rsi}/Artifacts/rsi1-{_rsi}-signed.apk)
+- RSI2: [rsi2-{_rsi}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/RSI/release/{_branchName}/RC/{_rsi}/Artifacts/rsi2-{_rsi}-signed.apk)   
             '''.format(_branchName=branchName, _lastCommit_title=lastCommit_title_hmi, _jenkins=jenkins,
                        _hmiVersion=hmiVersion,
                        _lastCommit=lastCommit_hmi, _rsi=rsi)
         elif(self.comboBox.currentText() == 'Rainier'):
-            hmi_content = '''
+            hmi_content = '''       
+**HMI:**
 
-                      
-            **HMI:**
-            
-            - Jenkins Job:[{_jenkins}]({_jenkins})
-            - Last commit for build: [{_lastCommit_title}]({_lastCommit})
-            - Coverage report: [CoverageReport/](http://tar2.telenav.com/repository/telenav/HMI-Common/Rainier/{_branchName}/RC/{_hmiVersion}/CoverageReport/)
-            - Security report: [SecurityAnalysisReport/](http://tar2.telenav.com/repository/telenav/HMI-Common/Rainier/release/{_branchName}/RC/{_hmiVersion}/SecurityAnalysisReport/)
-            - Static code analysis report: [StaticCodeAnalysisReport/](http://tar2.telenav.com/repository/telenav/HMI-Common/Rainier/release/{_branchName}/RC/{_hmiVersion}/StaticCodeAnalysisReport/)
-            - Unit test report: [UnitTestReport/](http://tar2.telenav.com/repository/telenav/HMI-Common/Rainier/release/{_branchName}/RC/{_hmiVersion}/UnitTestReport/)
-            - Git branch: [release/{_branchName}](https://bitbucket.telenav.com/projects/AUT/repos/hmi-common/browse?at=refs%2Fheads%2Frelease%2F{_branchName})
-            - Version: [{_hmiVersion}](http://tar2.telenav.com/repository/telenav/HMI-Common/Rainier/release/{_branchName}/RC/{_hmiVersion}/)
-            - Bench(x86_64)
-            - HMI APK: [rainier-dev-release-x86_64-{_hmiVersion}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/Rainier/release/{_branchName}/RC/{_hmiVersion}/Artifacts/rainier-dev-release-x86_64-{_hmiVersion}-signed.apk)
-            - So libraries: [solibs-{_hmiVersion}.zip](http://tar2.telenav.com/repository/telenav/HMI-Common/Rainier/release/{_branchName}/RC/{_hmiVersion}/Artifacts/solibs-{_hmiVersion}.zip)
-            - HMI PRD APK: [rainier-production-release-x86_64-{_hmiVersion}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/Rainier/release/{_branchName}/RC/{_hmiVersion}/Artifacts/rainier-production-release-x86_64-{_hmiVersion}-signed.apk)
-            
-            **Cluster:**
-            
-            - Cluster: [cluster-x86_64-{_hmiVersion}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/Rainier/release/{_branchName}/RC/{_hmiVersion}/Artifacts/cluster-x86_64-{_hmiVersion}-signed.apk)
-            
-            **RSI:**
-            
-            - Security report: [SecurityAnalysisReport/](http://tar2.telenav.com/repository/telenav/HMI-Common/RSI/release/{_branchName}/RC/{_rsi}/SecurityAnalysisReport/)
-            - Static code analysis report: [StaticCodeAnalysisReport/](http://tar2.telenav.com/repository/telenav/HMI-Common/RSI/release/{_branchName}/RC/{_rsi}/StaticCodeAnalysisReport/)
-            - RSI1: [rsi1-x86_64-{_rsi}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/RSI/release/{_branchName}/RC/{_rsi}/Artifacts/rsi1-x86_64-{_rsi}-signed.apk)
-            - RSI2: [rsi2-x86_64-{_rsi}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/RSI/release/{_branchName}/RC/{_rsi}/Artifacts/rsi2-x86_64-{_rsi}-signed.apk)
+- Jenkins Job:[{_jenkins}]({_jenkins})
+- Last commit for build: [{_lastCommit_title}]({_lastCommit})
+- Coverage report: [CoverageReport/](http://tar2.telenav.com/repository/telenav/HMI-Common/Rainier/release/{_branchName}/RC/{_hmiVersion}/CoverageReport/)
+- Security report: [SecurityAnalysisReport/](http://tar2.telenav.com/repository/telenav/HMI-Common/Rainier/release/{_branchName}/RC/{_hmiVersion}/SecurityAnalysisReport/)
+- Static code analysis report: [StaticCodeAnalysisReport/](http://tar2.telenav.com/repository/telenav/HMI-Common/Rainier/release/{_branchName}/RC/{_hmiVersion}/StaticCodeAnalysisReport/)
+- Unit test report: [UnitTestReport/](http://tar2.telenav.com/repository/telenav/HMI-Common/Rainier/release/{_branchName}/RC/{_hmiVersion}/UnitTestReport/)
+- Git branch: [release/{_branchName}](https://bitbucket.telenav.com/projects/AUT/repos/hmi-common/browse?at=refs%2Fheads%2Frelease%2F{_branchName})
+- Version: [{_hmiVersion}](http://tar2.telenav.com/repository/telenav/HMI-Common/Rainier/release/{_branchName}/RC/{_hmiVersion}/)
+- Bench(x86_64)
+- HMI APK: [rainier-dev-release-x86_64-{_hmiVersion}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/Rainier/release/{_branchName}/RC/{_hmiVersion}/Artifacts/rainier-dev-release-x86_64-{_hmiVersion}-signed.apk)
+- So libraries: [solibs-{_hmiVersion}.zip](http://tar2.telenav.com/repository/telenav/HMI-Common/Rainier/release/{_branchName}/RC/{_hmiVersion}/Artifacts/solibs-{_hmiVersion}.zip)
+- HMI PRD APK: [rainier-production-release-x86_64-{_hmiVersion}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/Rainier/release/{_branchName}/RC/{_hmiVersion}/Artifacts/rainier-production-release-x86_64-{_hmiVersion}-signed.apk)
 
+**Cluster:**
 
+- Cluster: [cluster-x86_64-{_hmiVersion}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/Rainier/release/{_branchName}/RC/{_hmiVersion}/Artifacts/cluster-x86_64-{_hmiVersion}-signed.apk)
 
+**RSI:**
+
+- Security report: [SecurityAnalysisReport/](http://tar2.telenav.com/repository/telenav/HMI-Common/RSI/release/{_branchName}/RC/{_rsi}/SecurityAnalysisReport/)
+- Static code analysis report: [StaticCodeAnalysisReport/](http://tar2.telenav.com/repository/telenav/HMI-Common/RSI/release/{_branchName}/RC/{_rsi}/StaticCodeAnalysisReport/)
+- RSI1: [rsi1-x86_64-{_rsi}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/RSI/release/{_branchName}/RC/{_rsi}/Artifacts/rsi1-x86_64-{_rsi}-signed.apk)
+- RSI2: [rsi2-x86_64-{_rsi}-signed.apk](http://tar2.telenav.com/repository/telenav/HMI-Common/RSI/release/{_branchName}/RC/{_rsi}/Artifacts/rsi2-x86_64-{_rsi}-signed.apk)
                        '''.format(_branchName=branchName, _lastCommit_title=lastCommit_title_hmi, _jenkins=jenkins,
                                   _hmiVersion=hmiVersion,
                                   _lastCommit=lastCommit_hmi, _rsi=rsi)
@@ -193,28 +185,27 @@ class Ui_WikiGenerator(object):
         if (self.comboBox.currentText() == 'Denali'):
             java_content = '''
         
-            **JavaSDK**
-        
-            - GIT branch: https://bitbucket.telenav.com/projects/AUT/repos/java-sdk-common/browse?at=refs%2Fheads%2Frelease%2F{_branchName}
-            - Last commit: [{_lastCommit_title}]({_lastCommit})
-            - Jenkins Flow:  [{_jenkins}]({_jenkins})
-            - Release note: http://tar2.telenav.com/repository/telenav/Common-Lib/SDK/{_javaVersion}/
-            - Version: {_javaVersion}
-            - PL3 test tool: http://tar2.telenav.com/repository/telenav/Common-Lib/SDK/{_javaVersion}/arp-sdk-debug-test-android-{_javaVersion}.apk
-        
+**JavaSDK**
+
+- GIT branch: https://bitbucket.telenav.com/projects/AUT/repos/java-sdk-common/browse?at=refs%2Fheads%2Frelease%2F{_branchName}
+- Last commit: [{_lastCommit_title}]({_lastCommit})
+- Jenkins Flow:  [{_jenkins}]({_jenkins})
+- Release note: http://tar2.telenav.com/repository/telenav/Common-Lib/SDK/{_javaVersion}/
+- Version: {_javaVersion}
+- PL3 test tool: http://tar2.telenav.com/repository/telenav/Common-Lib/SDK/{_javaVersion}/arp-sdk-debug-test-android-{_javaVersion}.apk
             '''.format(_branchName=branchName, _lastCommit_title=lastCommit_title_java, _jenkins=jenkins_java,
                        _javaVersion=javaVersion, _lastCommit=lastCommit_java)
         elif(self.comboBox.currentText() == 'Rainier'):
             java_content = '''
 
-            **JavaSDK**
+**JavaSDK**
 
 
-            - Git: [release/{_branchName}](https://bitbucket.telenav.com/projects/AUT/repos/java-sdk-common/browse?at=refs%2Fheads%2Frelease%2F{_branchName})
-            - Last commit for build: [{_lastCommit_title}]({_lastCommit})
-            - Jenkins: [{_jenkins}]({_jenkins})
-            - Atlas SDK Version: [{_javaVersion}/](http://tar2.telenav.com/repository/telenav/Common-Lib/SDK/{_javaVersion}/)
-            - Pipleline test tool:  [arp-sdk-debug-test-android-{_javaVersion}.apk](http://tar2.telenav.com/repository/telenav/Common-Lib/SDK/{_javaVersion}/arp-sdk-debug-test-android-{_javaVersion}.apk)
+- Git: [release/{_branchName}](https://bitbucket.telenav.com/projects/AUT/repos/java-sdk-common/browse?at=refs%2Fheads%2Frelease%2F{_branchName})
+- Last commit for build: [{_lastCommit_title}]({_lastCommit})
+- Jenkins: [{_jenkins}]({_jenkins})
+- Atlas SDK Version: [{_javaVersion}/](http://tar2.telenav.com/repository/telenav/Common-Lib/SDK/{_javaVersion}/)
+- Pipleline test tool:  [arp-sdk-debug-test-android-{_javaVersion}.apk](http://tar2.telenav.com/repository/telenav/Common-Lib/SDK/{_javaVersion}/arp-sdk-debug-test-android-{_javaVersion}.apk)
 
             '''.format(_branchName=branchName, _lastCommit_title=lastCommit_title_java,
                        _jenkins=jenkins_java,
