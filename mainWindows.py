@@ -75,6 +75,7 @@ class Ui_WikiGenerator(object):
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
+        self.comboBox.addItem("")
         WikiGenerator.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(WikiGenerator)
         self.statusbar.setObjectName("statusbar")
@@ -96,6 +97,7 @@ class Ui_WikiGenerator(object):
         self.jenkins_java.setText(_translate("WikiGenerator", "Jenkins"))
         self.comboBox.setItemText(0, _translate("WikiGenerator", "Denali"))
         self.comboBox.setItemText(1, _translate("WikiGenerator", "Rainier"))
+        self.comboBox.setItemText(2, _translate("WikiGenerator", "MyDrive"))
         self.java.setText(_translate("WikiGenerator", "Java VERSION"))
         self.lastcommit_java.setText(_translate("WikiGenerator", "Last commit"))
 
@@ -105,9 +107,32 @@ class Ui_WikiGenerator(object):
     def project_select(self):
         _translate = QtCore.QCoreApplication.translate
         if(self.comboBox.currentText() == 'Denali'):
-            self.java.setText(_translate("WikiGenerator", "JavaSDK VERSION"))
+            self.java.setText(_translate("WikiGenerator", "Java VERSION"))
+            self.summit_JavaSDK.setText(_translate("WikiGenerator", "Summit_jdk"))
+            self.lastcommit_java.setText(_translate("WikiGenerator", "Last commit"))
+            self.summit_HMI.show()
+            self.rsi.show()
+            self.rsi_.show()
+            self.jenkins_java.show()
+            self._jenkins_java.show()
         elif(self.comboBox.currentText() == 'Rainier'):
-            self.java.setText(_translate("WikiGenerator", "AtlasSDK VERSION"))
+            self.java.setText(_translate("WikiGenerator", "Atlas VERSION"))
+            self.summit_JavaSDK.setText(_translate("WikiGenerator", "Summit_jdk"))
+            self.lastcommit_java.setText(_translate("WikiGenerator", "Last commit"))
+            self.summit_HMI.show()
+            self.rsi.show()
+            self.rsi_.show()
+            self.jenkins_java.show()
+            self._jenkins_java.show()
+        elif (self.comboBox.currentText() == 'MyDrive'):
+            self.java.setText(_translate("WikiGenerator", "Trans version"))
+            self.lastcommit_java.setText(_translate("WikiGenerator", "Trans note sp"))
+            self.summit_HMI.close()
+            self.rsi.close()
+            self.rsi_.close()
+            self.jenkins_java.close()
+            self._jenkins_java.close()
+            self.summit_JavaSDK.setText(_translate("WikiGenerator", "summit"))
     def hmi_wiki(self):
         hmiVersion = self.hmi_.text()
         branchName = self.branch_.text()
@@ -170,7 +195,6 @@ class Ui_WikiGenerator(object):
                        '''.format(_branchName=branchName, _lastCommit_title=lastCommit_title_hmi, _jenkins=jenkins,
                                   _hmiVersion=hmiVersion,
                                   _lastCommit=lastCommit_hmi, _rsi=rsi)
-
         with open('hmi.txt', 'w') as f:
             f.write(hmi_content)
         f.close()
@@ -210,9 +234,35 @@ class Ui_WikiGenerator(object):
             '''.format(_branchName=branchName, _lastCommit_title=lastCommit_title_java,
                        _jenkins=jenkins_java,
                        _javaVersion=javaVersion, _lastCommit=lastCommit_java)
+        elif (self.comboBox.currentText() == 'MyDrive'):
+            hmiVersion = self.hmi_.text()
+            branchName = self.branch_.text()
+            lastCommit_hmi = self.lastcommit_.text()
+            lastCommit_title_hmi = self.lastcommit_.text()[-40: -32]
+            jenkins = self.jenkins_.text()
+            java_content = '''    
+**HMI:**
 
-        with open('java.txt', 'w') as m:
+- GIT: [{_branchName}](https://bitbucket.telenav.com/projects/AUT/repos/transformerhmi/browse?at=refs%2Fheads%2F{_branchName})
+- Jenkins Flow: [{_jenkins}]({_jenkins})
+- Last commit for build: [{_lastCommit_title}]({_lastCommit})
+- Version:  {_hmiVersion}
+- Release note: N/A
+- UT Coverage Report: [{_jenkins}jacoco/]({_jenkins}jacoco/)
+- HMI APK (x86-64): [MyDriveHMI-x86_64-{_hmiVersion}-signed.apk]({_jenkins}app/{_hmiVersion}/MyDriveHMI-x86_64-{_hmiVersion}-signed.apk)
+- HMI APK (arm64-v8a): [MyDriveHMI-arm64-v8a-{_hmiVersion}-signed.apk]({_jenkins}app/{_hmiVersion}/MyDriveHMI-arm64-v8a-{_hmiVersion}-signed.apk)
+
+
+**Tansformer Nav:**
+
+- Version: {javaVersion}
+- Release Note:  [TRANS_CYCLONUS_SP{_transNote} Release](https://spaces.telenav.com:8443/display/auto/TRANS_CYCLONUS_SP{_transNote}%20Release)
+                       '''.format(_branchName=branchName, _lastCommit_title=lastCommit_title_hmi,
+                                  _jenkins=jenkins,
+                                  _hmiVersion=hmiVersion,
+                                  _lastCommit=lastCommit_hmi, javaVersion=javaVersion, _transNote=lastCommit_java)
+        with open('result.txt', 'w') as m:
              m.write(java_content)
         m.close()
-        QtWidgets.QMessageBox.information(self.summit_HMI, "INFO", "Has been saved in java.txt")
+        QtWidgets.QMessageBox.information(self.summit_HMI, "INFO", "Has been saved in result.txt")
 
