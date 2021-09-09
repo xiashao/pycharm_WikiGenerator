@@ -240,6 +240,7 @@ class Ui_WikiGenerator(object):
             lastCommit_hmi = self.lastcommit_.text()
             lastCommit_title_hmi = self.lastcommit_.text()[-40: -32]
             jenkins = self.jenkins_.text()
+            number = self.jenkins_.text().rsplit('/')[-2]
             java_content = '''    
 **HMI:**
 
@@ -249,8 +250,8 @@ class Ui_WikiGenerator(object):
 - Version:  {_hmiVersion}
 - Release note: N/A
 - UT Coverage Report: [{_jenkins}jacoco/]({_jenkins}jacoco/)
-- HMI APK (x86-64): [MyDriveHMI-x86_64-{_hmiVersion}-signed.apk]({_jenkins}app/{_hmiVersion}/MyDriveHMI-x86_64-{_hmiVersion}-signed.apk)
-- HMI APK (arm64-v8a): [MyDriveHMI-arm64-v8a-{_hmiVersion}-signed.apk]({_jenkins}app/{_hmiVersion}/MyDriveHMI-arm64-v8a-{_hmiVersion}-signed.apk)
+- HMI APK (x86-64): [MyDriveHMI-x86_64-{_hmiVersion}-signed.apk](http://us-artifactory.telenav.com/telenav-artifacts-preprod/oem/mydrive/RC/master/{_number}/app/{_hmiVersion}/MyDriveHMI-x86_64-{_hmiVersion}-signed.apk)
+- HMI APK (arm64-v8a): [MyDriveHMI-arm64-v8a-{_hmiVersion}-signed.apk](http://us-artifactory.telenav.com/telenav-artifacts-preprod/oem/mydrive/RC/master/{_number}/app/{_hmiVersion}/MyDriveHMI-arm64-v8a-{_hmiVersion}-signed.apk)
 
 
 **Tansformer Nav:**
@@ -260,7 +261,7 @@ class Ui_WikiGenerator(object):
                        '''.format(_branchName=branchName, _lastCommit_title=lastCommit_title_hmi,
                                   _jenkins=jenkins,
                                   _hmiVersion=hmiVersion,
-                                  _lastCommit=lastCommit_hmi, javaVersion=javaVersion, _transNote=lastCommit_java)
+                                  _lastCommit=lastCommit_hmi, javaVersion=javaVersion, _transNote=lastCommit_java, _number = number)
         with open('result.txt', 'w') as m:
              m.write(java_content)
         m.close()
